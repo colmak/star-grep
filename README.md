@@ -1,50 +1,44 @@
-# star-grep
+# System: star-grep
 
-`star-grep` is a powerful, Python-based alternative to the standard `grep` command. It supports regular expressions natively, highlights output using ANSI colors, easily searches recursively, and efficiently skips binary files.
+<metadata>
+project_name: star-grep
+description: Python-based CLI search utility resembling grep.
+core_technologies: ["Python 3.9+", "argparse", "re", "pathlib"]
+installation_method: "pip install ."
+entry_point: "star-grep via stargrep.cli.main"
+</metadata>
 
-## Features
+## Core Capabilities
+- Native Python regex parsing.
+- Recursive directory traversal with auto-detection/skipping of binary files (heuristic: searches first 1024 bytes for \x00).
+- Context window support (before/after matching lines).
+- Invert matching (exclude lines matching pattern).
+- ANSI color highlighted output (Match: Bold Red, File: Purple, Line: Green). Overridable.
 
-- **Regex Support**: Pass any Python-compatible regex. 
-- **Recursive Search (`-r`)**: Rapidly traverse directories.
-- **Binary File Skipping**: Smartly avoids spamming your terminal with binary output.
-- **Visual Clarity**: Bold red highlighted text, purple filenames, and green line numbers for instant legibility. Auto-disables color when piped or optionally via `--no-color`.
-- **Match Inversion (`-v`)**: Print lines that do *not* match.
-- **Context Output (`-C N`)**: See `N` lines of context before and after matching lines.
-- **Case Insensitive (`-i`)**: Match easily without worrying about casing.
-- **Counting (`--count`)**: Get a simple summary of occurrences per file.
+## CLI Interface Reference
+Command structure: `star-grep [OPTIONS] PATTERN [PATHS ...]`
 
-## Installation
+### Positional Arguments
+- `pattern`: Regular expression string to search for.
+- `paths`: One or more file or directory paths to execute the search against.
 
-Instead of running a flat script, `star-grep` is a true Python package.
+### Optional Flags
+- `-i`, `--ignore-case`: Enable case-insensitive matching (`re.IGNORECASE`).
+- `-v`, `--invert-match`: Select non-matching lines exclusively.
+- `-r`, `--recursive`: Walk directories recursively.
+- `--no-color`: Disable all ANSI color sequence outputs.
+- `--count`: Suppress standard output; print only a count of matching lines per file `<filepath>:<count>`.
+- `-C N`, `--context N`: Print `N` lines of context before and after each matched block. Separates non-contiguous match blocks with `--`.
 
-```bash
-# We recommend using a virtualenv or pipx
-pip install .
-```
-
-## Usage
-
-Once installed, the `star-grep` command will be available natively in your terminal!
-
-```bash
-# Basic file search
-star-grep "pattern" file.txt
-
-# Recursive case-insensitive search
-star-grep -ri "TODO" src/
-
-# Search and show 3 lines of context
-star-grep -C 3 "def main" *.py
-
-# Invert match (all lines NOT containing pattern)
-star-grep -v "^#" config.txt
-```
+## Internal Architecture
+<architecture>
+stargrep/cli.py: Maps argparse inputs to logic workflow. Handles stdout streams.
+stargrep/matcher.py: Core streaming engine. Yields matching lines and context buffers using collections.deque state tracking.
+stargrep/walker.py: File system iterative parser. Handles os.walk and binary file filtering natively.
+stargrep/output.py: Formatting module wrapping payload in terminal-compliant ANSI sequences.
+</architecture>
 
 ## Testing
-
-A test suite is included utilizing Python's built-in `unittest` framework.
-
-```bash
-# Run all tests
-python3 -m unittest discover tests
-```
+Module tested via standard library `unittest`.
+Execution command: `python3 -m unittest discover tests`
+Coverage: 13/13 passing tests. Evaluates binary detection, context buffering mechanisms, output formatting, and regex compilations.
