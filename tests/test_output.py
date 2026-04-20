@@ -1,5 +1,5 @@
 import unittest
-from output import highlight_match, format_line, COLOR_RESET, COLOR_FILENAME, COLOR_LINE_NUM, COLOR_MATCH
+from stargrep.output import highlight_match, format_line, COLOR_RESET, COLOR_FILENAME, COLOR_LINE_NUM, COLOR_MATCH
 
 class TestOutput(unittest.TestCase):
     def test_highlight_match_no_color(self):
