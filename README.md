@@ -13,20 +13,31 @@
 - **Case Insensitive (`-i`)**: Match easily without worrying about casing.
 - **Counting (`--count`)**: Get a simple summary of occurrences per file.
 
+## Installation
+
+Instead of running a flat script, `star-grep` is a true Python package.
+
+```bash
+# We recommend using a virtualenv or pipx
+pip install .
+```
+
 ## Usage
+
+Once installed, the `star-grep` command will be available natively in your terminal!
 
 ```bash
 # Basic file search
-./star-grep.py "pattern" file.txt
+star-grep "pattern" file.txt
 
 # Recursive case-insensitive search
-./star-grep.py -ri "TODO" src/
+star-grep -ri "TODO" src/
 
 # Search and show 3 lines of context
-./star-grep.py -C 3 "def main" *.py
+star-grep -C 3 "def main" *.py
 
 # Invert match (all lines NOT containing pattern)
-./star-grep.py -v "^#" config.txt
+star-grep -v "^#" config.txt
 ```
 
 ## Testing
