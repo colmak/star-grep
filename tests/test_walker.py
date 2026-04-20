@@ -2,7 +2,7 @@ import unittest
 import os
 import tempfile
 from pathlib import Path
-from walker import is_binary, walk_paths
+from stargrep.walker import is_binary, walk_paths
 
 class TestWalker(unittest.TestCase):
     def setUp(self):
