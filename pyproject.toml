@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stargrep"
+version = "0.1.0"
+description = "A powerful, Python-based CLI tool similar to grep"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+    { name = "Developer" }
+]
+
+dependencies = []
+
+[project.scripts]
+star-grep = "stargrep.cli:main"
