@@ -2,7 +2,7 @@ import unittest
 import re
 import tempfile
 from pathlib import Path
-from matcher import get_match_spans, search_file
+from stargrep.matcher import get_match_spans, search_file
 
 class TestMatcher(unittest.TestCase):
     def setUp(self):
