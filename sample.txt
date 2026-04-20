@@ -1,0 +1,6 @@
+The quick brown fox
+jumps over the
+lazy dog.
+Python is great.
+This is a regex test.
+Regex tests are fun.
