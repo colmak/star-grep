@@ -39,9 +39,9 @@ def search_file(
                     
                 if is_match:
                     # We found a match. 
-                    # 1. Print separator if there's a gap
+                    # 1. Print separator if there's a gap and we are using context
                     first_line_to_print = before_buffer[0][0] if before_buffer else i
-                    if last_printed_line_num > 0 and first_line_to_print > last_printed_line_num + 1:
+                    if context_size > 0 and last_printed_line_num > 0 and first_line_to_print > last_printed_line_num + 1:
                         yield ("separator", 0, "", [])
                         
                     # 2. Flush before_buffer as context lines
